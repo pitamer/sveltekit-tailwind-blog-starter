@@ -37,7 +37,7 @@
 
 				{#if tags.length}
 					<div class="flex flex-wrap">
-						{#each tags as tag}
+						{#each tags as tag (tag.slug)}
 							<div class="mr-5">
 								<Tag text={tag.text} size="text-xs" />
 								<a
@@ -57,7 +57,7 @@
 		No post found.
 	{:else}
 		<ul>
-			{#each currentPosts as post}
+			{#each currentPosts as post (post.slug)}
 				<li class="py-12">
 					<article>
 						<div class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
@@ -71,7 +71,7 @@
 											</a>
 										</h2>
 										<div class="flex flex-wrap">
-											{#each post.tags as tag}
+											{#each post.tags as tag, idx (post.slug + ':' + tag + ':' + idx)}
 												<Tag text={tag} />
 											{/each}
 										</div>
