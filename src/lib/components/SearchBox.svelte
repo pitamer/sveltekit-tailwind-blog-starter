@@ -1,11 +1,11 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	let search = '';
 
 	onMount(() => {
-		search = $page.url.searchParams.get('query');
+		search = page.url.searchParams.get('query');
 		if (search) {
 			document.getElementById('search').focus();
 		}

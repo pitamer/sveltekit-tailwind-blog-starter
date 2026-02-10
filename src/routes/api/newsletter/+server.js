@@ -15,6 +15,6 @@ export const POST = async ({ request }) => {
 		);
 	} catch (err) {
 		console.error(err);
-		throw error(400, "couldn't add email to the newsletter");
+		error(400, "couldn't add email to the newsletter");
 	}
 };

@@ -10,7 +10,7 @@ export async function load({ params }) {
 	const author = authors.find((a) => a.name === post.author);
 
 	if (!post) {
-		throw error(404, 'No post found');
+		error(404, 'No post found');
 	}
 
 	return {

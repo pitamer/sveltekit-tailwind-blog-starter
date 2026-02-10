@@ -6,7 +6,7 @@ import { error } from '@sveltejs/kit';
 export async function load() {
 	const posts = getEntries('posts');
 	if (!posts) {
-		throw error(404, 'No post found');
+		error(404, 'No post found');
 	}
 
 	const tags = getTags();

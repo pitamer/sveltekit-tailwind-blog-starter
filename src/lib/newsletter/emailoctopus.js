@@ -18,7 +18,7 @@ async function registerEmail(email) {
 		});
 
 		if (response.status >= 400) {
-			throw error(400, "couldn't add email to the newsletter");
+			error(400, "couldn't add email to the newsletter");
 		} else {
 			return new Response(JSON.stringify({ message: 'Email added to the newsletter' }), {
 				status: 200
@@ -26,7 +26,7 @@ async function registerEmail(email) {
 		}
 	} catch (err) {
 		console.error(err);
-		throw error(err.status, err.title);
+		error(err.status, err.title);
 	}
 }
 

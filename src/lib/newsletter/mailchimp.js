@@ -24,13 +24,13 @@ async function registerEmail(email) {
 		const mailchimpResponse = await response.json();
 		if (mailchimpResponse?.status !== 'subscribed') {
 			console.error(mailchimpResponse);
-			throw error(400, "couldn't add email to the newsletter");
+			error(400, "couldn't add email to the newsletter");
 		} else {
 			return mailchimpResponse;
 		}
 	} catch (err) {
 		console.error(err);
-		throw error(err.status, err.title);
+		error(err.status, err.title);
 	}
 }
 

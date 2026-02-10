@@ -3,7 +3,7 @@
 	import Title from '$lib/components/Title.svelte';
 	import Author from '$lib/components/Author.svelte';
 	import SearchBox from '$lib/components/SearchBox.svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import fuzzySearch from '$utils/search.js';
 
 	export let title = '';
@@ -19,7 +19,7 @@
 		posts = posts.slice(0, count);
 	}
 
-	$: filter = $page.url.searchParams.get('query');
+	$: filter = page.url.searchParams.get('query');
 	$: currentPosts = filter ? fuzzySearch(posts, filter) : posts;
 </script>
 

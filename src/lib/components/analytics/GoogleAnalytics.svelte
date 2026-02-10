@@ -1,6 +1,6 @@
 <script>
 	import { dev } from '$app/environment';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let id = '';
 
@@ -8,7 +8,7 @@
 		if (typeof gtag !== 'undefined') {
 			gtag('config', ID, {
 				page_title: document.title,
-				page_path: $page.url.pathname
+				page_path: page.url.pathname
 			});
 		}
 	}

@@ -5,7 +5,7 @@ import { error } from '@sveltejs/kit';
 export async function load() {
 	const projects = getEntries('projects');
 	if (!projects) {
-		throw error(404, 'No project found');
+		error(404, 'No project found');
 	}
 
 	return {

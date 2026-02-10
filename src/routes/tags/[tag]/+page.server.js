@@ -13,7 +13,7 @@ export async function load({ params }) {
 	const filteredPosts = posts.filter((p) => slugsArray(p.tags).includes(tag));
 
 	if (!filteredPosts) {
-		throw error(404, 'No post found');
+		error(404, 'No post found');
 	}
 
 	return {
