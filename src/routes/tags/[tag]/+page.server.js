@@ -9,7 +9,7 @@ function slugsArray(tags) {
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
 	const { tag } = params;
-	const posts = getEntries('posts');
+	const posts = await getEntries('posts');
 	const filteredPosts = posts.filter((p) => slugsArray(p.tags).includes(tag));
 
 	if (!filteredPosts) {

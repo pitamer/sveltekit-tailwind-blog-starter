@@ -2,10 +2,7 @@
 	import SocialIcon from '$lib/components/SocialIcon.svelte';
 	import formatDate from '$utils/formatDate';
 
-	export let author = '';
-	export let avatar = '';
-	export let twitter = '';
-	export let postDate = '';
+	let { author = '', avatar = '', twitter = '', postDate = '' } = $props();
 </script>
 
 {#if avatar}
@@ -18,7 +15,9 @@
 		<dt class="sr-only">Twitter</dt>
 		<dd>
 			<SocialIcon icon="twitter" url={twitter} small>
-				{twitter?.replace('https://twitter.com/', '@')}
+				{#snippet children()}
+					{twitter?.replace('https://twitter.com/', '@')}
+				{/snippet}
 			</SocialIcon>
 		</dd>
 	{/if}

@@ -4,23 +4,23 @@
 	import Author from '$lib/components/Author.svelte';
 	import SearchBox from '$lib/components/SearchBox.svelte';
 	import { page } from '$app/state';
+	import { building } from '$app/environment';
 	import fuzzySearch from '$utils/search.js';
 
-	export let title = '';
-	export let subtitle = '';
-	export let posts = [];
-	export let tags = [];
-	export let more = true;
-	export let search = true;
-	export let h2 = false;
-	export let count = 0;
+	let {
+		title = '',
+		subtitle = '',
+		posts = [],
+		tags = [],
+		more = true,
+		search = true,
+		h2 = false,
+		count = 0
+	} = $props();
 
-	if (count) {
-		posts = posts.slice(0, count);
-	}
-
-	$: filter = page.url.searchParams.get('query');
-	$: currentPosts = filter ? fuzzySearch(posts, filter) : posts;
+	let displayedPosts = $derived(count ? posts.slice(0, count) : posts);
+	let filter = $derived(building ? null : page.url.searchParams.get('query'));
+	let currentPosts = $derived(filter ? fuzzySearch(displayedPosts, filter) : displayedPosts);
 </script>
 
 <div class="divide-y divide-gray-200 dark:divide-gray-700">

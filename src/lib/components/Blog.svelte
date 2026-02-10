@@ -3,8 +3,7 @@
 	import Tag from '$lib/components/Tag.svelte';
 	import Author from '$lib/components/Author.svelte';
 
-	export let post;
-	export let author;
+	let { post, author } = $props();
 </script>
 
 <div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">

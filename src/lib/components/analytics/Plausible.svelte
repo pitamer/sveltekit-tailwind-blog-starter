@@ -1,7 +1,7 @@
 <script>
 	import { dev } from '$app/environment';
 
-	let domain = '';
+	let { domain = '' } = $props();
 </script>
 
 <svelte:head>

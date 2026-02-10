@@ -1,8 +1,6 @@
 <script>
-	export let title = 'Title';
-	export let subtitle = '';
-	export let h2 = false;
-	let selected = h2 ? 'h2' : 'h1';
+	let { title = 'Title', subtitle = '', h2 = false } = $props();
+	let selected = $derived(h2 ? 'h2' : 'h1');
 </script>
 
 {#if title}

@@ -27,8 +27,7 @@ const config = {
 			$utils: path.resolve('./src/utils')
 		}
 	},
-	plugins: [sveltekit(), svg(svgPluginOptions), rawFonts(['.ttf'])],
-	legacy: { buildSsrCjsExternalHeuristics: true }
+	plugins: [sveltekit(), svg(svgPluginOptions), rawFonts(['.ttf'])]
 };
 
 function rawFonts(ext) {

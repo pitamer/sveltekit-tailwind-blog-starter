@@ -4,8 +4,8 @@
 	import { config } from '$lib/config';
 	import Title from '$lib/components/Title.svelte';
 
-	export let data;
-	const authors = data.authors;
+	let { data } = $props();
+	const authors = $derived(data.authors);
 </script>
 
 <Head title="About" />

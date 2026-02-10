@@ -1,4 +1,5 @@
 // used the following as a reference: https://geoffrich.net/posts/svelte-social-image/
+import { render } from 'svelte/server';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import Saira from '$lib/fonts/Saira-ExtraBold.ttf';
@@ -13,8 +14,8 @@ const height = openGraph.height;
 /** @type {import('./$types').RequestHandler} */
 export const GET = async ({ url }) => {
 	const text = url.searchParams.get('text') ?? undefined;
-	const result = OGTemplate.render({ text });
-	const element = toReactNode(result.html);
+	const result = await render(OGTemplate, { props: { text } });
+	const element = toReactNode(result.body);
 	// const element = toReactNode(`${result.html}<style>${result.css.code}</style>`);
 
 	const svg = await satori(element, {

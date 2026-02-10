@@ -1,13 +1,11 @@
 <script>
-	export const prerender = true;
-
 	import Transition from '$lib/components/layout/Transition.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import Analytics from '$lib/components/analytics/index.svelte';
 	import '../app.css';
 
-	export let data = {};
+	let { data = {} } = $props();
 </script>
 
 <div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
@@ -15,7 +13,9 @@
 		<Header />
 		<main class="mb-auto">
 			<Transition pathname={data?.pathname}>
-				<slot />
+				{#snippet children()}
+					<slot />
+				{/snippet}
 			</Transition>
 		</main>
 		<Footer />

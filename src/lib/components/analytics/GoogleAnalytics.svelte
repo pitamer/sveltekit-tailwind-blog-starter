@@ -2,16 +2,16 @@
 	import { dev } from '$app/environment';
 	import { page } from '$app/state';
 
-	let id = '';
+	let { id = '' } = $props();
 
-	$: {
-		if (typeof gtag !== 'undefined') {
-			gtag('config', ID, {
+	$effect(() => {
+		if (typeof gtag !== 'undefined' && id) {
+			gtag('config', id, {
 				page_title: document.title,
 				page_path: page.url.pathname
 			});
 		}
-	}
+	});
 </script>
 
 <svelte:head>

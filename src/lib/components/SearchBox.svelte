@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	let search = '';
+	let search = $state('');
 
 	onMount(() => {
 		search = page.url.searchParams.get('query');
@@ -20,7 +20,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
+<form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
 	<div class="relative mb-2">
 		<input
 			bind:value={search}

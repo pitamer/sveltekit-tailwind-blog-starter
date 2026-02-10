@@ -3,7 +3,7 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-	const projects = getEntries('projects');
+	const projects = await getEntries('projects');
 	if (!projects) {
 		error(404, 'No project found');
 	}

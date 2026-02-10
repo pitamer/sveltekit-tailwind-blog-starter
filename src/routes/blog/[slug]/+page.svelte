@@ -3,9 +3,9 @@
 	import Blog from '$lib/components/Blog.svelte';
 	import Comments from '$lib/components/comment/index.svelte';
 
-	export let data;
-	const post = data.post;
-	const author = data.author;
+	let { data } = $props();
+	const post = $derived(data.post);
+	const author = $derived(data.author);
 </script>
 
 <Head title={post.title} />

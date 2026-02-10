@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 	import { isDarkMode } from '$utils/theme';
 
-	export let config = {};
+	let { config = {} } = $props();
 
-	let theme = isDarkMode() ? config.darkTheme : config.theme;
+	let theme = $derived(isDarkMode() ? config.darkTheme : config.theme);
 
 	onMount(() => {
 		const utterances = document.createElement('script');
@@ -36,5 +36,5 @@
 	<div id="utterances-loading" class="flex flex-col items-center">
 		<h4>Loading Utternaces Discussion</h4>
 	</div>
-	<div id="utterances" class="utterances-frame relative" />
+	<div id="utterances" class="utterances-frame relative"></div>
 </div>

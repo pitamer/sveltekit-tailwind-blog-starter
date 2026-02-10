@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import { slug } from 'github-slugger';
+import { render } from 'svelte/server';
 import { config, user } from '$lib/config.js';
 
 // we require some server-side APIs to parse all metadata
@@ -33,13 +34,14 @@ const getEntriesByType = (entryType) => {
 	}
 };
 
-const getMetadata = (entryType, filepath, entry) => {
+const getMetadata = async (entryType, filepath, entry) => {
+	const { body } = await render(entry.default, { props: entry.metadata });
 	return {
 		...entry.metadata,
 
 		author: entryType === 'posts' && !config.multiuser ? user.name : entry.metadata.author,
 
-		content: entry.default.render().html,
+		content: body,
 
 		// generate the slug from the file path
 		slug: filepath
@@ -67,15 +69,17 @@ const getMetadata = (entryType, filepath, entry) => {
 };
 
 // Get all entries and add metadata
-export const getEntries = (entryType) => {
+export const getEntries = async (entryType) => {
 	if (!config.multiuser && entryType === 'authors') return [user];
 
 	let entries = getEntriesByType(entryType);
 
+	const withMetadata = await Promise.all(
+		entries.map(([filepath, entry]) => getMetadata(entryType, filepath, entry))
+	);
+
 	return (
-		entries
-			// format metadata and content
-			.map(([filepath, entry]) => getMetadata(entryType, filepath, entry))
+		withMetadata
 			// remove drafts
 			.filter((entry) => !entry.draft)
 			// sort by date
@@ -89,8 +93,8 @@ export const getEntries = (entryType) => {
 	);
 };
 
-export const getTags = () => {
-	const posts = getEntries('posts');
+export const getTags = async () => {
+	const posts = await getEntries('posts');
 	let tags = posts
 		.flatMap(({ tags }) => tags)
 		.map((tag) => ({ text: tag, slug: slug(tag) }))

@@ -6,12 +6,9 @@
 	import IconLinkedin from '$lib/icons/linkedin.svelte';
 	import IconTwitter from '$lib/icons/twitter.svelte';
 
-	export let url = '';
-	export let icon = '';
-	export let popup = false;
-	export let small = false;
+	let { url = '', icon = '', popup = false, small = false, children } = $props();
 
-	let size = small ? 'w-5' : 'w-7';
+	let size = $derived(small ? 'w-5' : 'w-7');
 
 	const options = [
 		{ caption: 'mail', component: IconMail },
@@ -22,7 +19,7 @@
 		{ caption: 'twitter', component: IconTwitter }
 	];
 
-	let svg = options.find((option) => option.caption === icon)?.component;
+	let svg = $derived(options.find((option) => option.caption === icon)?.component);
 </script>
 
 {#if url}
@@ -33,9 +30,12 @@
 		rel="noreferrer"
 	>
 		<span class="sr-only">{icon}</span>
-		<svelte:component this={svg} class="{size} " />
+		{#if svg}
+			{@const IconComponent = svg}
+			<IconComponent class="{size} " />
+		{/if}
 		<span>
-			<slot />
+			{@render children?.()}
 		</span>
 	</a>
 {/if}

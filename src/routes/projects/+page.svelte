@@ -2,8 +2,8 @@
 	import Card from '$lib/components/Card.svelte';
 	import Title from '$lib/components/Title.svelte';
 
-	export let data;
-	const projects = data.projects;
+	let { data } = $props();
+	const projects = $derived(data.projects);
 </script>
 
 <div class="divide-y divide-gray-200 dark:divide-gray-700">

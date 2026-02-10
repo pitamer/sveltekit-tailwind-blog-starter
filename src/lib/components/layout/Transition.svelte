@@ -1,10 +1,11 @@
 <script>
 	import { fly } from 'svelte/transition';
-	export let pathname = '';
+
+	let { pathname = '', children } = $props();
 </script>
 
 {#key pathname}
 	<div in:fly={{ x: -5, duration: 500, delay: 500 }}>
-		<slot />
+		{@render children?.()}
 	</div>
 {/key}

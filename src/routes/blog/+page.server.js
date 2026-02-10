@@ -4,12 +4,12 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-	const posts = getEntries('posts');
+	const posts = await getEntries('posts');
 	if (!posts) {
 		error(404, 'No post found');
 	}
 
-	const tags = getTags();
+	const tags = await getTags();
 
 	return {
 		// eslint-disable-next-line no-unused-vars

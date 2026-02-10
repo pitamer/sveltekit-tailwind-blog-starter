@@ -1,14 +1,18 @@
 <script>
 	import { config } from '$lib/config';
 
-	export let title = 'Official Website';
-	export let description = config.description;
-	export let author = config.author;
-	export let url = config.siteUrl;
-	export let domain = config.domain;
-	export let rtl = false;
-	let titleFromUrl = url.split('/').pop().replace('-', ' ');
-	export let img = `${url}/og?message=${rtl ? titleFromUrl : title}`;
+	let {
+		title = 'Official Website',
+		description = config.description,
+		author = config.author,
+		url = config.siteUrl,
+		domain = config.domain,
+		rtl = false,
+		img
+	} = $props();
+
+	let titleFromUrl = $derived(url.split('/').pop().replace('-', ' '));
+	let displayImg = $derived(img ?? `${url}/og?message=${rtl ? titleFromUrl : title}`);
 </script>
 
 <svelte:head>
@@ -21,7 +25,7 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
-	<meta property="og:image" content={img} />
+	<meta property="og:image" content={displayImg} />
 
 	<!-- Twitter Meta Tags -->
 	<meta name="twitter:card" content="summary_large_image" />
@@ -29,5 +33,5 @@
 	<meta property="twitter:url" content={url} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
-	<meta name="twitter:image" content={img} />
+	<meta name="twitter:image" content={displayImg} />
 </svelte:head>

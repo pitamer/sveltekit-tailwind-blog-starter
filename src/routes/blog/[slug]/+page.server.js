@@ -3,8 +3,8 @@ import { getEntries } from '$utils/entries.js';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
-	const posts = getEntries('posts');
-	const authors = getEntries('authors');
+	const posts = await getEntries('posts');
+	const authors = await getEntries('authors');
 	const { slug } = params;
 	const post = posts.find((p) => p.slug === slug);
 	const author = authors.find((a) => a.name === post.author);
